@@ -1,0 +1,41 @@
+{
+  "objArr": [
+    {
+      "name": "Adobo",
+      "origin": "Phillipines",
+      "myRating": 10,
+      "isServedAtJollibee": true,
+      "mealType": "entree",
+      "image": "images/adobo.png"
+    },
+    {
+      "name": "Lumpia",
+      "origin": "China",
+      "myRating": 8,
+      "isServedAtJollibee": false,
+      "mealType": "snack",
+      "image": "images/lumpia.png"
+    },
+    {
+      "name": "Filipino Spaghetti",
+      "origin": "Italy",
+      "myRating": 10,
+      "isServedAtJollibee": true,
+      "mealType": "images/spaghetti.png"
+    },
+    {
+      "name": "Sinigang",
+      "origin": "Phillipines",
+      "myRating": 9,
+      "isServedAtJollibee": true,
+      "mealType": "images/sinigang.png"
+    },
+    {
+      "name": "Halo-halo",
+      "origin": "Japan",
+      "myRating": 8,
+      "isServedAtJollibee": true,
+      "mealType": "images/halohalo.png"
+    }
+  ]
+}
