@@ -21,21 +21,24 @@
       "origin": "Italy",
       "myRating": 10,
       "isServedAtJollibee": true,
-      "mealType": "images/spaghetti.png"
+      "mealType": "entree",
+      "image": "images/spaghetti.png"
     },
     {
       "name": "Sinigang",
       "origin": "Phillipines",
       "myRating": 9,
       "isServedAtJollibee": true,
-      "mealType": "images/sinigang.png"
+      "mealType": "entree",
+      "image": "images/sinigang.png"
     },
     {
       "name": "Halo-halo",
       "origin": "Japan",
       "myRating": 8,
       "isServedAtJollibee": true,
-      "mealType": "images/halohalo.png"
+      "mealType": "dessert",
+      "image": "images/halohalo.png"
     }
   ]
 }

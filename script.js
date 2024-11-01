@@ -13,11 +13,14 @@ class FilipinoFood {
     }
 }
 
+/*
 let food1 = new FilipinoFood('Adobo','Phillipines', 10, true, mealCategory[0], 'images/adobo.png');
 let food2 = new FilipinoFood('Lumpia', 'China', 8, false, mealCategory[2], 'images/lumpia.png');
 let food3 = new FilipinoFood('Filipino Spaghetti', 'Italy', 10, true, mealCategory[0], 'images/spaghetti.png');
 let food4 = new FilipinoFood('Sinigang','Phillipines', 9, false, mealCategory[0], 'images/sinigang.png');
 let food5 = new FilipinoFood('Halo-halo','Japan', 8, true, mealCategory[1], 'images/halohalo.png');
+
+*/
 
 var httpRequest;
 
@@ -54,12 +57,14 @@ function updatePage(obj) {
     document.getElementById("name").value = obj.name;
     document.getElementById("origin").value = obj.origin;
     document.getElementById("rating").value = obj.myRating;
-    document.getElementById("jollibee").checked = obj.isServedAtJollibee ? 'checked' : 'unchecked';
+    document.getElementById("jollibee").checked = obj.isServedAtJollibee;
+    document.getElementById("category").value = obj.mealType;
     document.getElementById("image").innerHTML = '<img src="' + obj.image + '" width="200" height="200">';
+    document.getElementById("counter").innerHTML = 'Item #' + currentObj + ' of ' + maxObj;
 }
 
 function First() {
-    currentObj = 0;
+    currentObj = 1;
     RequestObject();
 }
 
