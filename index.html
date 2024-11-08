@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="style.css"/>
     <script type="text/javascript" src="script.js"></script>
 </head>
-<body onload="RequestObject()"> <!-- Onload: GetItem -->
-    <form method="POST">
+<body onload="RequestGet()"> <!-- Onload: GetItem -->
+    <form>
         <label for="name">Food:</label>
         <input type="text" id="name" name="name"/>
         <br>
@@ -44,9 +44,9 @@
         </section>
 
         <section>
-            <button>Add New</button>
-            <button>Delete</button>
-            <button>Save Current</button>
+            <button type="button" onclick="Save()">Save Current</button>
+            <button type="button" onclick="Delete()">Delete</button>
+            <button type="button" onclick="Create()">Create</button>
         </section>
 
         

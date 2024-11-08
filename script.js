@@ -19,13 +19,13 @@ let food2 = new FilipinoFood('Lumpia', 'China', 8, false, mealCategory[2], 'imag
 let food3 = new FilipinoFood('Filipino Spaghetti', 'Italy', 10, true, mealCategory[0], 'images/spaghetti.png');
 let food4 = new FilipinoFood('Sinigang','Phillipines', 9, false, mealCategory[0], 'images/sinigang.png');
 let food5 = new FilipinoFood('Halo-halo','Japan', 8, true, mealCategory[1], 'images/halohalo.png');
-
 */
 
 var httpRequest;
 
-function RequestObject() {
+function RequestGet() {
     httpRequest = new XMLHttpRequest();
+    console.log("requestget");
 
     if(!httpRequest) {
         alert('Could not create XMLHTTP instance!');
@@ -37,13 +37,28 @@ function RequestObject() {
     httpRequest.send();
 }
 
+function RequestPost(url, jsonStr) {
+    httpRequest = new XMLHttpRequest();
+
+    if(!httpRequest) {
+        alert('Could not create XMLHTTP instance!');
+        return false;
+    }
+
+    httpRequest.onreadystatechange = callbackFunc;
+    httpRequest.open('POST',url);
+    httpRequest.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+    httpRequest.send('curr='+ encodeURIComponent(currentObj) +'&newObj='+ encodeURIComponent(jsonStr));
+}
+
 function callbackFunc() {
     try {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 // HTTP Ok
+                console.log(httpRequest.responseText);
                 let obj = JSON.parse(httpRequest.responseText);
-                console.log(obj);
+                //console.log(obj);
                 updatePage(obj);
             }
         }
@@ -65,24 +80,38 @@ function updatePage(obj) {
 
 function First() {
     currentObj = 1;
-    RequestObject();
+    RequestGet();
 }
 
 function Prev() {
     if (currentObj > 1) {
         currentObj--;
-        RequestObject();
+        RequestGet();
     }
 }
 
 function Next() {
     if (currentObj < maxObj) {
         currentObj++;
-        RequestObject();
+        RequestGet();
     }
 }
 
 function Last() {
     currentObj = maxObj;
-    RequestObject();
+    RequestGet();
+}
+
+function Save() {
+    let newName = document.getElementById("name").value;
+    let newOrigin = document.getElementById("origin").value;
+    let newRating = document.getElementById("rating").value;
+    let newIsServedAtJollibee = document.getElementById("jollibee").checked;
+    let newCategory = document.getElementById("category").value;
+    let newImage = document.getElementById("id").childNodes[0].src;
+
+    let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
+    let jsonStr = JSON.stringify(newFood);
+
+    RequestPost('SaveItem.php',jsonStr);
 }

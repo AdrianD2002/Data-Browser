@@ -3,7 +3,7 @@
     {
       "name": "Adobo",
       "origin": "Phillipines",
-      "myRating": 10,
+      "myRating": "10",
       "isServedAtJollibee": true,
       "mealType": "entree",
       "image": "images/adobo.png"
