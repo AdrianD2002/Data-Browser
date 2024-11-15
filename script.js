@@ -15,7 +15,7 @@ class FilipinoFood {
 
 var httpRequest;
 
-function ReInitDB() {
+function ResetDB() {
     httpRequest = new XMLHttpRequest();
     console.log("Reinitializing Database.");
 
@@ -35,11 +35,13 @@ function dbCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 console.log(httpRequest.responseText);
+                currentObj = 1;
+                RequestGet();
             }
         }
     }
     catch (exception) {
-        alert('EXCEPTION:' + exception);
+        alert('EXCEPTION: ' + exception);
     }
 }
 
@@ -94,7 +96,7 @@ function updatePage(obj) {
     document.getElementById("rating").value = obj.myRating;
     document.getElementById("jollibee").checked = obj.isServedAtJollibee;
     document.getElementById("category").value = obj.mealType;
-    document.getElementById("image").innerHTML = '<img src="' + obj.dishImage + '" width="200" height="200">';
+    document.getElementById("image").innerHTML = '<img src="' + obj.dishImage + '" width="300" height="300">';
     document.getElementById("counter").innerHTML = 'Item #' + currentObj + ' of ' + maxObj;
 }
 
