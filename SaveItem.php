@@ -2,7 +2,6 @@
     $i = $_POST['curr'] - 1;
     $obj = $_POST['newObj'];
 
-
     $fileName = 'data.json';
     $dataStr = file_get_contents($fileName);
 
