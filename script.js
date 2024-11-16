@@ -19,7 +19,6 @@ let food2 = new FilipinoFood('Lumpia', 'China', 8, false, mealCategory[2], 'imag
 let food3 = new FilipinoFood('Filipino Spaghetti', 'Italy', 10, true, mealCategory[0], 'images/spaghetti.png');
 let food4 = new FilipinoFood('Sinigang','Phillipines', 9, false, mealCategory[0], 'images/sinigang.png');
 let food5 = new FilipinoFood('Halo-halo','Japan', 8, true, mealCategory[1], 'images/halohalo.png');
-
 */
 
 var httpRequest;
