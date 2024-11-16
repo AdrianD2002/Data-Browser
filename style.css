@@ -1,3 +1,35 @@
-.displayTable {
-    border: 1px solid black;
+body {
+    background-image: url('./images/starry.png');
+    text-align: center;
+}
+
+.display {
+    background-color: blue;
+    background-image: radial-gradient(circle, black, blue, darkblue);
+    width: 30%;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 2px 3px 5px rgba(0,0,0,0.5);
+    border-radius: 20px;
+    border-color: black;
+}
+
+img {
+    margin: 20px;
+}
+
+img:hover {
+    box-shadow: 5px 6px 10px rgba(0,0,0,0.5);
+    -webkit-transform: scale(1.5) rotateZ(1deg);
+    -ms-transform: scale(1.5) rotateZ(1deg);
+    transform: scale(1.5) rotateZ(1deg);
+    transition:all 0.3s ease;
+}
+
+img:not(:hover) {
+    box-shadow: 2px 3px 5px rgba(0,0,0,0.5);
+    -webkit-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    transform: scale(1.0);
+    transition:all 0.3s ease;
 }

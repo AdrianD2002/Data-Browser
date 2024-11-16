@@ -1,44 +1,44 @@
 {
   "objArr": [
     {
-      "name": "Adobo",
+      "dishName": "Adobo",
       "origin": "Phillipines",
-      "myRating": 10,
+      "myRating": "10",
       "isServedAtJollibee": true,
       "mealType": "entree",
-      "image": "images/adobo.png"
+      "dishImage": "images/adobo.png"
     },
     {
-      "name": "Lumpia",
+      "dishName": "Lumpia",
       "origin": "China",
       "myRating": 8,
       "isServedAtJollibee": false,
       "mealType": "snack",
-      "image": "images/lumpia.png"
+      "dishImage": "images/lumpia.png"
     },
     {
-      "name": "Filipino Spaghetti",
+      "dishName": "Filipino Spaghetti",
       "origin": "Italy",
       "myRating": 10,
       "isServedAtJollibee": true,
       "mealType": "entree",
-      "image": "images/spaghetti.png"
+      "dishImage": "images/spaghetti.png"
     },
     {
-      "name": "Sinigang",
+      "dishName": "Sinigang",
       "origin": "Phillipines",
       "myRating": 9,
-      "isServedAtJollibee": true,
+      "isServedAtJollibee": false,
       "mealType": "entree",
-      "image": "images/sinigang.png"
+      "dishImage": "images/sinigang.png"
     },
     {
-      "name": "Halo-halo",
+      "dishName": "Halo-halo",
       "origin": "Japan",
       "myRating": 8,
       "isServedAtJollibee": true,
       "mealType": "dessert",
-      "image": "images/halohalo.png"
+      "dishImage": "images/halohalo.png"
     }
   ]
 }
