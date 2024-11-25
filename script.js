@@ -1,5 +1,6 @@
 var currentObj = 1; // Current entry displayed on page
 var maxObj; // Last entry displayed on page
+var httpRequest; // Placeholder for HTTP requests
 
 class FilipinoFood {
     constructor(name, origin, myRating, isServedAtJollibee, mealType, image) {
@@ -11,8 +12,6 @@ class FilipinoFood {
         this.dishImage = image; // image URL
     }
 }
-
-var httpRequest;
 
 function Initialize() {
     httpRequest = new XMLHttpRequest();
