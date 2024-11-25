@@ -8,52 +8,64 @@
 </head>
 <body onload="RequestGet()"> <!-- Onload: GetItem -->
     <div class="display">
-        <h1>Filipino Food</h1>
-        <h2>CSCI 130 Database Project</h2>
+        <div class="display_header">
+            <h1>Filipino Food</h1>
+            <h2>CSCI 130 Database Project</h2>
+            <hr>
+        </div>
 
-        <label for="name">Food:</label>
-        <input type="text" id="name" name="name"/>
-        <br>
+        <div class="data_display">
+            <div class="data">
+                <ul>
+                    <li>
+                        <h2 id="counter"></h2>
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name"/>
+                    </li>
+                    <li>
+                        <label for="origin">Origin:</label><br>
+                        <input type="text" id="origin" name="origin"/>
+                    </li>
+                    <li>
+                        <label for="rating">Rating:</label><br>
+                        <input type="number" id="rating" name="rating"/>
+                    </li>
+                    <li>
+                        <label for="jollibee">Served at Jollibee:</label>
+                        <input type="checkbox" id="jollibee" name="jollibee"/>
+                    </li>
+                    <li>
+                        <label for="category">Course:</label>
+                        <select id="category">
+                            <option value="entree">Entree</option>
+                            <option value="dessert">Dessert</option>
+                            <option value="snack">Snack</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+            <div class="image_display">
+                <section id="image"></section>
+            </div>
+        </div>
 
-        <label for="origin">Origin:</label>
-        <input type="text" id="origin" name="origin"/>
-        <br>
-
-        <label for="rating">Rating:</label>
-        <input type="number" id="rating" name="rating"/>
-        <br>
-
-        <label for="jollibee">Served at Jollibee:</label>
-        <input type="checkbox" id="jollibee" name="jollibee"/>
-        <br>
-
-        <label for="category">Category:</label>
-        <select id="category">
-            <option value="entree">Entree</option>
-            <option value="dessert">Dessert</option>
-            <option value="snack">Snack</option>
-        </select>
-        <br>
-
-        <section id="image"></section>
-
-        <p id="counter"></p>
-
-        <section>
+        <nav>
             <button type="button" onclick="First()">First</button> 
             <button type="button" onclick="Prev()">Prev</button>
             <button type="button" onclick="Next()">Next</button>
             <button type="button" onclick="Last()">Last</button>
-        </section>
+        </nav>
 
-        <section>
-            <button type="button" onclick="Save()">Save Current</button>
-            <button type="button" onclick="Delete()">Delete</button>
-            <button type="button" onclick="Create()">Create</button>
-        </section>
+        <div class="edit_options">
+            <section>
+                <button type="button" onclick="Save()">Save Current</button>
+                <button type="button" onclick="Delete()">Delete Current</button>
+                <button type="button" onclick="Create()">Save as New</button>
+            </section>
+    
+            <button type="button" onclick="ResetDB()">Reset Data</button>
+        </div>
     </div>
 
-    <button type="button" onclick="ResetDB()">Reset Data</button>
-    
 </body>
 </html>

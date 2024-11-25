@@ -1,6 +1,5 @@
-var mealCategory = ['entree', 'dessert', 'snack'];
 var currentObj = 1; // Current entry displayed on page
-var maxObj = 5; // Last entry displayed on page
+var maxObj = 10; // Last entry displayed on page
 
 class FilipinoFood {
     constructor(name, origin, myRating, isServedAtJollibee, mealType, image) {
@@ -9,7 +8,7 @@ class FilipinoFood {
         this.myRating = myRating; // number
         this.isServedAtJollibee = isServedAtJollibee; // boolean
         this.mealType = mealType; // category
-        this.dishImage = image; // image (string)
+        this.dishImage = image; // image URL
     }
 }
 
@@ -24,12 +23,12 @@ function ResetDB() {
         return false;
     }
 
-    httpRequest.onreadystatechange = dbCallback;
+    httpRequest.onreadystatechange = ResetCallback;
     httpRequest.open('GET',`initDB.php`);
     httpRequest.send();
 }
 
-function dbCallback() {
+function ResetCallback() {
     try {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
@@ -41,22 +40,37 @@ function dbCallback() {
         }
     }
     catch (exception) {
-        alert('EXCEPTION: ' + exception);
+        alert('RESETDB EXCEPTION: ' + exception);
     }
 }
 
 function RequestGet() {
     httpRequest = new XMLHttpRequest();
-    console.log("requestget");
 
     if(!httpRequest) {
         alert('Could not create XMLHTTP instance!');
         return false;
     }
 
-    httpRequest.onreadystatechange = callbackFunc;
+    httpRequest.onreadystatechange = GetCallback;
     httpRequest.open('GET',`fetch_data.php?curr=${currentObj}`);
     httpRequest.send();
+}
+
+function GetCallback() {
+    try {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                // HTTP Ok
+                let obj = JSON.parse(httpRequest.responseText);
+                //console.log(obj);
+                updatePage(obj);
+            }
+        }
+    }
+    catch (exception) {
+        alert('GET EXCEPTION: ' + exception);
+    }
 }
 
 function RequestPost(url, jsonStr) {
@@ -67,26 +81,24 @@ function RequestPost(url, jsonStr) {
         return false;
     }
 
-    httpRequest.onreadystatechange = callbackFunc;
+    httpRequest.onreadystatechange = PostCallback;
     httpRequest.open('POST',url);
     httpRequest.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
     httpRequest.send('curr='+ encodeURIComponent(currentObj) +'&newObj='+ encodeURIComponent(jsonStr));
 }
 
-function callbackFunc() {
+function PostCallback() {
     try {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 console.log(httpRequest.responseText);
-                let obj = JSON.parse(httpRequest.responseText);
-                //console.log(obj);
-                updatePage(obj);
+                RequestGet();
             }
         }
     }
     catch (exception) {
-        alert('EXCEPTION:' + exception);
+        alert('POST EXCEPTION: ' + exception);
     }
 }
 
@@ -130,10 +142,11 @@ function Save() {
     let newRating = document.getElementById("rating").value;
     let newIsServedAtJollibee = document.getElementById("jollibee").checked;
     let newCategory = document.getElementById("category").value;
-    let newImage = document.getElementById("id").childNodes[0].src;
+    let newImage = document.getElementById("image").childNodes[0].src;
 
     let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
     let jsonStr = JSON.stringify(newFood);
+    console.log(jsonStr)
 
-    RequestPost('SaveItem.php',jsonStr);
+    RequestPost('save_data.php',jsonStr);
 }
