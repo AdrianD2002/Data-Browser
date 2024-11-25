@@ -136,7 +136,7 @@ function updatePage(obj) {
     document.getElementById("name").value = obj.dishName;
     document.getElementById("origin").value = obj.origin;
     document.getElementById("rating").value = obj.myRating;
-    document.getElementById("jollibee").checked = obj.isServedAtJollibee;
+    document.getElementById("jollibee").checked = obj.isServedAtJollibee == 1;
     document.getElementById("category").value = obj.mealType;
     document.getElementById("image").innerHTML = '<img src="' + obj.dishImage + '" width="300" height="300">';
     document.getElementById("counter").innerHTML = 'Item #' + currentObj + ' of ' + maxObj;
@@ -170,18 +170,34 @@ function Save() {
     let newName = document.getElementById("name").value;
     let newOrigin = document.getElementById("origin").value;
     let newRating = document.getElementById("rating").value;
-    let newIsServedAtJollibee = document.getElementById("jollibee").checked;
+    let newIsServedAtJollibee = document.getElementById("jollibee").checked ? 1 : 0;
     let newCategory = document.getElementById("category").value;
-    let newImage = document.getElementById("image").childNodes[0].src;
+    let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/csci130db/', '');
 
     let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
     let jsonStr = JSON.stringify(newFood);
     console.log(jsonStr)
 
-    RequestPost('save_data.php',jsonStr);
+    RequestPost('save_curr.php',jsonStr);
 }
 
 function Delete() {
     RequestPost('delete_record.php','');
     maxObj--;
+}
+
+function Create() {
+    let newName = document.getElementById("name").value;
+    let newOrigin = document.getElementById("origin").value;
+    let newRating = document.getElementById("rating").value;
+    let newIsServedAtJollibee = document.getElementById("jollibee").checked ? 1 : 0;
+    let newCategory = document.getElementById("category").value;
+    let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/csci130db/', '');
+
+    let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
+    let jsonStr = JSON.stringify(newFood);
+
+    RequestPost('save_new.php',jsonStr);
+    maxObj++;
+    currentObj = maxObj;
 }

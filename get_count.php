@@ -10,7 +10,7 @@
     // Select the Database
     $conn->select_db('csci130DB');
 
-    // Select an object
+    // Get the count of records in the table
     $sql = 'SELECT COUNT(*) AS total FROM Dishes;';
     
     // Make the query

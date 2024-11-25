@@ -34,7 +34,7 @@ button[onclick="ResetDB()"] {
 }
 
 button[onclick="ResetDB()"]:hover {
-    background-color: rgb(255, 170, 170);
+    background-color: rgb(255, 112, 112);
     border: 2px solid darkred;
 }
 
