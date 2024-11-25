@@ -1,5 +1,5 @@
 var currentObj = 1; // Current entry displayed on page
-var maxObj = 10; // Last entry displayed on page
+var maxObj; // Last entry displayed on page
 
 class FilipinoFood {
     constructor(name, origin, myRating, isServedAtJollibee, mealType, image) {
@@ -13,6 +13,35 @@ class FilipinoFood {
 }
 
 var httpRequest;
+
+function Initialize() {
+    httpRequest = new XMLHttpRequest();
+    console.log("Initializing.");
+
+    if(!httpRequest) {
+        alert('Could not create XMLHTTP instance!');
+        return false;
+    }
+
+    httpRequest.onreadystatechange = InitializeCallback;
+    httpRequest.open('GET',`get_count.php`);
+    httpRequest.send();
+}
+
+function InitializeCallback() {
+    try {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                // HTTP Ok
+                maxObj = parseInt(httpRequest.responseText);
+                RequestGet();
+            }
+        }
+    }
+    catch (exception) {
+        alert('RESETDB EXCEPTION: ' + exception);
+    }
+}
 
 function ResetDB() {
     httpRequest = new XMLHttpRequest();
@@ -35,6 +64,7 @@ function ResetCallback() {
                 // HTTP Ok
                 console.log(httpRequest.responseText);
                 currentObj = 1;
+                maxObj = 10;
                 RequestGet();
             }
         }
@@ -149,4 +179,9 @@ function Save() {
     console.log(jsonStr)
 
     RequestPost('save_data.php',jsonStr);
+}
+
+function Delete() {
+    RequestPost('delete_record.php','');
+    maxObj--;
 }

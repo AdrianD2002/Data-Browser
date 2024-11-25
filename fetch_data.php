@@ -1,6 +1,6 @@
 <?php
     // Get current object index from GET request
-    $i = isset($_GET['curr']) ? $_GET['curr'] - 1 : 0;
+    $i = isset($_GET['curr']) ? $_GET['curr']: 0;
 
     // MySQL Database Information
     $servername = "localhost";
@@ -16,7 +16,7 @@
     // Select an object
     $sql = "SELECT dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
     FROM Dishes
-    LIMIT 1 OFFSET $i"; // Targets the ith record from the database
+    WHERE id = " . $i;
     
     // Make the query
     $result = $conn->query($sql);
