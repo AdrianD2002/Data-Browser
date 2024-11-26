@@ -24,7 +24,7 @@ function Initialize() {
     }
 
     httpRequest.onreadystatechange = InitializeCallback;
-    httpRequest.open('GET',`get_count.php`);
+    httpRequest.open('GET',`init.php`);
     httpRequest.send();
 }
 
@@ -34,6 +34,7 @@ function InitializeCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 maxObj = parseInt(httpRequest.responseText);
+                console.log(httpRequest.responseText);
                 document.getElementById("by_index").style = 'color: lime; font-weight: bolder';
                 RequestGet();
             }
@@ -54,7 +55,7 @@ function ResetDB() {
     }
 
     httpRequest.onreadystatechange = ResetCallback;
-    httpRequest.open('GET',`initDB.php`);
+    httpRequest.open('GET',`reset_db.php`);
     httpRequest.send();
 }
 

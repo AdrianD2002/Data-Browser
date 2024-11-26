@@ -13,14 +13,19 @@
         echo "Connected successfully \n";
     }
 
-    // Delete existing database
-    $sql = 'DROP DATABASE csci130DB';
-    if ($conn->query($sql)) {
-        echo "Old database successfully dropped\n";
-    } 
-    else {
-        echo 'Error dropping database: ' . $conn->error . "\n"; 
-    }	
+    // Check for existing database
+    $sql = 'SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = "csci130DB"';
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+         // Delete existing database
+        $sql = 'DROP DATABASE csci130DB';
+        if ($conn->query($sql)) {
+            echo "Old database successfully dropped\n";
+        } 
+        else {
+            echo 'Error dropping database: ' . $conn->error . "\n"; 
+        }	
+    }
 
     // Creation of the database
     $sql = "CREATE DATABASE csci130DB";
@@ -91,4 +96,7 @@
     else {
         echo "Error inserting record: " . $conn->error . "\n";
     }
+
+    // Close the connection
+    $conn->close();
 ?>
