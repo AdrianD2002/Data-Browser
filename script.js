@@ -1,6 +1,7 @@
 var currentObj = 1; // Current entry displayed on page
 var maxObj; // Last entry displayed on page
 var httpRequest; // Placeholder for HTTP requests
+var sortByIndex = true; // Toggle for display order
 
 class FilipinoFood {
     constructor(name, origin, myRating, isServedAtJollibee, mealType, image) {
@@ -33,6 +34,7 @@ function InitializeCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 maxObj = parseInt(httpRequest.responseText);
+                document.getElementById("by_index").style = 'color: lime; font-weight: bolder';
                 RequestGet();
             }
         }
@@ -182,6 +184,9 @@ function Save() {
 
 function Delete() {
     RequestPost('delete_record.php','');
+    if (currentObj == maxObj) {
+        currentObj = currentObj - 1;
+    }
     maxObj--;
 }
 
@@ -199,4 +204,17 @@ function Create() {
     RequestPost('save_new.php',jsonStr);
     maxObj++;
     currentObj = maxObj;
+}
+
+function ToggleSort() {
+    sortByIndex = !sortByIndex;
+
+    if (sortByIndex) {
+        document.getElementById("by_index").style = 'color: lime; font-weight: bolder';
+        document.getElementById("by_name").style = '';
+    }
+    else {
+        document.getElementById("by_index").style = '';
+        document.getElementById("by_name").style = 'color: lime; font-weight: bolder';
+    }
 }
