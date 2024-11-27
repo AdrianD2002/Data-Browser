@@ -1,6 +1,7 @@
 <?php
-    // Get current object index from GET request
-    $i = isset($_GET['curr']) ? $_GET['curr']: 0;
+    // Get current object index and sort type from GET request
+    $i = isset($_GET['curr']) ? $_GET['curr'] : 0;
+    $sortIndex = isset($_GET['sortIndex']) ? $_GET['sortIndex'] : 1;
 
     // MySQL Database Information
     $servername = "localhost";
@@ -13,14 +14,28 @@
     // Select the Database
     $conn->select_db('csci130DB');
 
-    // Select an object
-    $sql = "SELECT dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
-    FROM Dishes
-    WHERE id = " . $i;
-    
-    // Make the query
-    $result = $conn->query($sql);
-    
+    // Check if querying by name or index
+    if ($sortIndex) {
+        $sql = "SELECT dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
+        FROM Dishes
+        WHERE id = ?";
+    }
+    else {
+        $sql = "SELECT dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
+        FROM Dishes
+        ORDER BY dishName
+        LIMIT 1 OFFSET ?";
+
+        $i = $i - 1;
+    }
+
+    // Prepare statement for execution
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $i);
+
+    //Execute and get result
+    $stmt->execute();
+    $result = $stmt->get_result();
     // Set the header
     header('Content-Type: application/json');
 
@@ -35,5 +50,6 @@
     }
 
     // Close the connection
-    $conn->close()
+    $conn->close();
+    $stmt->close();
 ?>

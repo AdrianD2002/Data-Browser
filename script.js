@@ -16,7 +16,6 @@ class FilipinoFood {
 
 function Initialize() {
     httpRequest = new XMLHttpRequest();
-    console.log("Initializing.");
 
     if(!httpRequest) {
         alert('Could not create XMLHTTP instance!');
@@ -34,7 +33,6 @@ function InitializeCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 maxObj = parseInt(httpRequest.responseText);
-                console.log(httpRequest.responseText);
                 document.getElementById("by_index").style = 'color: lime; font-weight: bolder';
                 RequestGet();
             }
@@ -78,6 +76,7 @@ function ResetCallback() {
 
 function RequestGet() {
     httpRequest = new XMLHttpRequest();
+    sortType = sortByIndex ? 1 : 0;
 
     if(!httpRequest) {
         alert('Could not create XMLHTTP instance!');
@@ -85,7 +84,7 @@ function RequestGet() {
     }
 
     httpRequest.onreadystatechange = GetCallback;
-    httpRequest.open('GET',`fetch_data.php?curr=${currentObj}`);
+    httpRequest.open('GET',`fetch_data.php?curr=${currentObj}&sortIndex=${sortType}`);
     httpRequest.send();
 }
 
@@ -95,7 +94,7 @@ function GetCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 let obj = JSON.parse(httpRequest.responseText);
-                //console.log(obj);
+                //console.log(httpRequest.responseText);
                 updatePage(obj);
             }
         }
@@ -174,7 +173,7 @@ function Save() {
     let newRating = document.getElementById("rating").value;
     let newIsServedAtJollibee = document.getElementById("jollibee").checked ? 1 : 0;
     let newCategory = document.getElementById("category").value;
-    let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/csci130db/', '');
+    let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/Data-Browser/', '');
 
     let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
     let jsonStr = JSON.stringify(newFood);
@@ -218,4 +217,6 @@ function ToggleSort() {
         document.getElementById("by_index").style = '';
         document.getElementById("by_name").style = 'color: lime; font-weight: bolder';
     }
+
+    RequestGet();
 }

@@ -31,7 +31,6 @@
 
         $conn->query($sql);
 
-
         // Inserting initial records (using this syntax so I can avoid multi-query result retrieval blocking the get count)
         $sql = "INSERT INTO Dishes (dishName, origin, myRating, isServedAtJollibee, mealType, dishImage) 
         VALUES  ('Adobo','Phillipines',10,TRUE,'entree','images/adobo.png'),
@@ -44,7 +43,6 @@
                 ('Kare-kare','Phillipines',10,FALSE,'entree','images/karekare.png'),
                 ('Boy Bawang','Phillipines',7,FALSE,'snack','images/boybawang.png'),
                 ('Skyflakes','Phillipines',8,FALSE,'snack','images/skyflakes.png');";
-
 
         $conn->query($sql);
     }
