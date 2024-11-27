@@ -99,4 +99,12 @@
 
     // Close the connection
     $conn->close();
+
+    // Delete the files uploaded by users
+    $files = glob('uploads/*'); // get all file names
+    foreach($files as $file) { // iterate files
+        if(is_file($file)) {
+            unlink($file); // delete file
+        }
+    }
 ?>
