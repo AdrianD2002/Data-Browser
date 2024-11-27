@@ -1,6 +1,5 @@
 <?php
     // Get data from POST request
-    $i = isset($_POST['curr']) ? $_POST['curr'] : 0;
     $dataStr = isset($_POST['newObj']) ? $_POST['newObj'] : null;
     //echo $dataStr . 'id=' . $i .;
     $data = json_decode($dataStr, true);
@@ -45,7 +44,7 @@
     $isServedAtJollibee = $data["isServedAtJollibee"];
     $mealType = $data["mealType"];
     $dishImage = $data["dishImage"];
-    $id = $i;
+    $id = $data["id"];
 
     // Execute with arguments
     $stmt->execute();

@@ -6,7 +6,8 @@ var sortByIndex = true; // Toggle for display order
 var currId; // To save the current object's database ID, separate from the DOM
 
 class FilipinoFood {
-    constructor(name, origin, myRating, isServedAtJollibee, mealType, image) {
+    constructor(id, name, origin, myRating, isServedAtJollibee, mealType, image) {
+        this.id = id;
         this.dishName = name; // string 1
         this.origin = origin; // string 2
         this.myRating = myRating; // number
@@ -96,7 +97,7 @@ function GetCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 let obj = JSON.parse(httpRequest.responseText);
-                console.log(httpRequest.responseText);
+                //console.log(httpRequest.responseText);
                 updatePage(obj);
             }
         }
@@ -106,7 +107,7 @@ function GetCallback() {
     }
 }
 
-function RequestPost(url, jsonStr) {
+function RequestPost(url, str) {
     httpRequest = new XMLHttpRequest();
 
     if(!httpRequest) {
@@ -117,7 +118,7 @@ function RequestPost(url, jsonStr) {
     httpRequest.onreadystatechange = PostCallback;
     httpRequest.open('POST',url);
     httpRequest.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
-    httpRequest.send('curr='+ encodeURIComponent(currentObj) +'&newObj='+ encodeURIComponent(jsonStr));
+    httpRequest.send('str='+ encodeURIComponent(str));
 }
 
 function PostCallback() {
@@ -172,6 +173,7 @@ function Last() {
 }
 
 function Save() {
+    let newId = currId;
     let newName = document.getElementById("name").value;
     let newOrigin = document.getElementById("origin").value;
     let newRating = document.getElementById("rating").value;
@@ -179,7 +181,7 @@ function Save() {
     let newCategory = document.getElementById("category").value;
     let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/Data-Browser/', '');
 
-    let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
+    let newFood = new FilipinoFood(newId, newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
     let jsonStr = JSON.stringify(newFood);
     console.log(jsonStr)
 
@@ -200,9 +202,9 @@ function Create() {
     let newRating = document.getElementById("rating").value;
     let newIsServedAtJollibee = document.getElementById("jollibee").checked ? 1 : 0;
     let newCategory = document.getElementById("category").value;
-    let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/csci130db/', '');
+    let newImage = document.getElementById("image").childNodes[0].src.replace(window.location.origin + '/Data-Browser/', '');
 
-    let newFood = new FilipinoFood(newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
+    let newFood = new FilipinoFood(maxObj + 1, newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
     let jsonStr = JSON.stringify(newFood);
 
     RequestPost('save_new.php',jsonStr);

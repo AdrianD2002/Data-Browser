@@ -1,6 +1,6 @@
 <?php
     // Get current object index from POST request
-    $target = isset($_POST['newObj']) ? $_POST['newObj'] : 0;
+    $target = isset($_POST['str']) ? $_POST['str'] : 0;
 
     // MySQL Database Information
     $servername = "localhost";
