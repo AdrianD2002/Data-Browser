@@ -3,6 +3,8 @@ var maxObj; // Last entry displayed on page
 var httpRequest; // Placeholder for HTTP requests
 var sortByIndex = true; // Toggle for display order
 
+var currId; // To save the current object's database ID, separate from the DOM
+
 class FilipinoFood {
     constructor(name, origin, myRating, isServedAtJollibee, mealType, image) {
         this.dishName = name; // string 1
@@ -94,7 +96,7 @@ function GetCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 let obj = JSON.parse(httpRequest.responseText);
-                //console.log(httpRequest.responseText);
+                console.log(httpRequest.responseText);
                 updatePage(obj);
             }
         }
@@ -134,6 +136,8 @@ function PostCallback() {
 }
 
 function updatePage(obj) {
+    currId = obj.id;
+
     document.getElementById("name").value = obj.dishName;
     document.getElementById("origin").value = obj.origin;
     document.getElementById("rating").value = obj.myRating;
@@ -183,7 +187,7 @@ function Save() {
 }
 
 function Delete() {
-    RequestPost('delete_record.php','');
+    RequestPost('delete_record.php',currId);
     if (currentObj == maxObj) {
         currentObj = currentObj - 1;
     }
@@ -203,7 +207,6 @@ function Create() {
 
     RequestPost('save_new.php',jsonStr);
     maxObj++;
-    currentObj = maxObj;
 }
 
 function ToggleSort() {

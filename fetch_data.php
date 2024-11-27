@@ -16,12 +16,12 @@
 
     // Check if querying by name or index
     if ($sortIndex) {
-        $sql = "SELECT dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
+        $sql = "SELECT id, dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
         FROM Dishes
         WHERE id = ?";
     }
     else {
-        $sql = "SELECT dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
+        $sql = "SELECT id, dishName, origin, myRating, isServedAtJollibee, mealType, dishImage 
         FROM Dishes
         ORDER BY dishName
         LIMIT 1 OFFSET ?";

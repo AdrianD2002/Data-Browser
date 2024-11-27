@@ -1,6 +1,6 @@
 <?php
     // Get current object index from POST request
-    $i = isset($_POST['curr']) ? $_POST['curr']: 0;
+    $target = isset($_POST['newObj']) ? $_POST['newObj'] : 0;
 
     // MySQL Database Information
     $servername = "localhost";
@@ -14,7 +14,7 @@
     $conn->select_db('csci130DB');
 
     // Delete the current object
-    $sql = 'DELETE FROM Dishes WHERE id = ' . $i . ';';
+    $sql = 'DELETE FROM Dishes WHERE id = ' . $target . ';';
 
     // Update the IDs in the table
     $sql .= 'SET @new_id = 0;';
