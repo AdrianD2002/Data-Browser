@@ -20,30 +20,30 @@
                     <li>
                         <h2 id="counter"></h2>
                         <label for="name">Name:</label><br>
-                        <input type="text" id="name" name="name"/>
+                        <input type="text" id="name" name="name" readonly/>
                     </li>
                     <li>
                         <label for="origin">Origin:</label><br>
-                        <input type="text" id="origin" name="origin"/>
+                        <input type="text" id="origin" name="origin" readonly/>
                     </li>
                     <li>
                         <label for="rating">Rating:</label><br>
-                        <input type="number" id="rating" name="rating"/>
+                        <input type="number" id="rating" name="rating" readonly/>
                     </li>
                     <li>
                         <label for="jollibee">Served at Jollibee:</label>
-                        <input type="checkbox" id="jollibee" name="jollibee"/>
+                        <input type="checkbox" id="jollibee" name="jollibee" readonly/>
                     </li>
                     <li>
                         <label for="category">Course:</label>
-                        <select id="category">
+                        <select id="category" readonly>
                             <option value="entree">Entree</option>
                             <option value="dessert">Dessert</option>
                             <option value="snack">Snack</option>
                         </select>
                     </li>
-                    <li>
-                        <label for="file">Change Image:</label>
+                    <li id="file_input" hidden>
+                        <label for="file">New Image:</label>
                         <input type="file" id="file" name="filename" onchange="Upload()">
                     </li>
                 </ul>
@@ -61,17 +61,20 @@
         </nav>
 
         <button type="button" onclick="ToggleSort()">Change Order (<span id="by_index">By Index</span>/<span id="by_name">By Name</span>)</button>
- 
-        <div class="edit_options">
+        <br>
+        <button type="button" onclick="ToggleEditing()">Toggle Editing</button>
+
+        <div id="edit_options" hidden>
             <section>
                 <button type="button" onclick="Save()">Save Current</button>
                 <button type="button" onclick="Delete()">Delete Current</button>
                 <button type="button" onclick="Create()">Save as New</button>
             </section>
-    
             <button type="button" onclick="ResetDB()">Reset to Default Entries</button>
         </div>
     </div>
+    
+    
 
 </body>
 </html>

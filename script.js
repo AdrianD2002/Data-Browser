@@ -2,6 +2,7 @@ var currentObj = 1; // Current entry displayed on page
 var maxObj; // Last entry displayed on page
 var httpRequest; // Placeholder for HTTP requests
 var sortByIndex = true; // Toggle for display order
+var editingEnabled = false;
 
 var currId; // To save the current object's database ID, separate from the DOM
 
@@ -36,7 +37,7 @@ function InitializeCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 maxObj = parseInt(httpRequest.responseText);
-                document.getElementById("by_index").style = 'color: lime; font-weight: bolder';
+                document.getElementById('by_index').style = 'color: lime; font-weight: bolder';
                 RequestGet();
             }
         }
@@ -44,6 +45,12 @@ function InitializeCallback() {
     catch (exception) {
         alert('RESETDB EXCEPTION: ' + exception);
     }
+}
+
+function ToggleEditing() {
+    editingEnabled = !editingEnabled;
+    document.getElementById('edit_options').hidden = !editingEnabled;
+    document.getElementById('file_input').hidden = !editingEnabled;
 }
 
 function ResetDB() {
