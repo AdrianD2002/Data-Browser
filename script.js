@@ -63,11 +63,11 @@ function ToggleEditing() {
         document.getElementById('jollibee').removeAttribute("readonly");
     }
     else {
-        document.getElementById('name').setAttribute("readonly");
-        document.getElementById('origin').setAttribute("readonly");
-        document.getElementById('rating').setAttribute("readonly");
-        document.getElementById('jollibee').setAttribute("readonly");
-        document.getElementById('category').setAttribute("disabled");
+        document.getElementById('name').setAttribute("readonly",true);
+        document.getElementById('origin').setAttribute("readonly",true);
+        document.getElementById('rating').setAttribute("readonly",true);
+        document.getElementById('jollibee').setAttribute("readonly",true);
+        document.getElementById('category').setAttribute("disabled",true);
     }
 }
 
