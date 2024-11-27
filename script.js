@@ -51,6 +51,24 @@ function ToggleEditing() {
     editingEnabled = !editingEnabled;
     document.getElementById('edit_options').hidden = !editingEnabled;
     document.getElementById('file_input').hidden = !editingEnabled;
+    document.getElementById('category').disabled = !editingEnabled;
+    document.getElementById('category').hidden = !editingEnabled;
+    document.getElementById('category_static').hidden = editingEnabled;
+
+
+    if (editingEnabled) {
+        document.getElementById('name').removeAttribute("readonly");
+        document.getElementById('origin').removeAttribute("readonly");
+        document.getElementById('rating').removeAttribute("readonly");
+        document.getElementById('jollibee').removeAttribute("readonly");
+    }
+    else {
+        document.getElementById('name').setAttribute("readonly");
+        document.getElementById('origin').setAttribute("readonly");
+        document.getElementById('rating').setAttribute("readonly");
+        document.getElementById('jollibee').setAttribute("readonly");
+        document.getElementById('category').setAttribute("disabled");
+    }
 }
 
 function ResetDB() {
@@ -153,6 +171,7 @@ function updatePage(obj) {
     document.getElementById("rating").value = obj.myRating;
     document.getElementById("jollibee").checked = obj.isServedAtJollibee == 1;
     document.getElementById("category").value = obj.mealType;
+    document.getElementById("category_static").innerHTML = obj.mealType;
     document.getElementById("image").innerHTML = '<img src="' + obj.dishImage + '" width="300" height="300">';
     document.getElementById("counter").innerHTML = 'Item #' + currentObj + ' of ' + maxObj;
 }

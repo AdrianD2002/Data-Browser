@@ -38,6 +38,11 @@ button[onclick="ResetDB()"]:hover {
     border: 2px solid darkred;
 }
 
+#category_static {
+    color: gold;
+    text-transform: capitalize;
+}
+
 .data_display {
     text-align: left;
     display: flex;
