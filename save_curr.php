@@ -1,6 +1,6 @@
 <?php
     // Get data from POST request
-    $dataStr = isset($_POST['newObj']) ? $_POST['newObj'] : null;
+    $dataStr = isset($_POST['str']) ? $_POST['str'] : null;
     //echo $dataStr . 'id=' . $i .;
     $data = json_decode($dataStr, true);
 

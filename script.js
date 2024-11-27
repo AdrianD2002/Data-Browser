@@ -139,6 +139,8 @@ function PostCallback() {
 function updatePage(obj) {
     currId = obj.id;
 
+    console.log("Updating page with object:\n" + JSON.stringify(obj));
+
     document.getElementById("name").value = obj.dishName;
     document.getElementById("origin").value = obj.origin;
     document.getElementById("rating").value = obj.myRating;
@@ -183,7 +185,7 @@ function Save() {
 
     let newFood = new FilipinoFood(newId, newName, newOrigin, newRating, newIsServedAtJollibee, newCategory, newImage);
     let jsonStr = JSON.stringify(newFood);
-    console.log(jsonStr)
+    console.log("Saving object:\n" + jsonStr)
 
     RequestPost('save_curr.php',jsonStr);
 }
@@ -224,4 +226,41 @@ function ToggleSort() {
     }
 
     RequestGet();
+}
+
+var fileName;
+
+function Upload() {
+    let file = document.getElementById('file').files[0];
+    fileName = file.name;
+    let data = new FormData();
+    data.append('file',file);
+
+    httpRequest = new XMLHttpRequest();
+
+    if(!httpRequest) {
+        alert('Could not create XMLHTTP instance!');
+        return false;
+    }
+
+    console.log(file.name)
+
+    httpRequest.onreadystatechange = UploadCallBack;
+    httpRequest.open('POST','upload.php');
+    httpRequest.send(data);
+}
+
+function UploadCallBack() {
+    try {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                // HTTP Ok
+                console.log(httpRequest.responseText);
+                document.getElementById("image").childNodes[0].src = "uploads/" + fileName;
+            }
+        }
+    }
+    catch (exception) {
+        alert('POST EXCEPTION: ' + exception);
+    }
 }

@@ -93,6 +93,14 @@ img:active {
     transition:all 0.3s ease;
 }
 
+input[type="file"]{
+    font-size: 0px;
+}
+
+input[type="file"]::file-selector-button {
+    font-size: 10pt;
+}
+
 .inputs {
     flex: 1;
     text-align: left;
