@@ -217,6 +217,10 @@ function Save() {
 }
 
 function Delete() {
+    if (maxObj == 1) {
+        alert("Can't delete the last object!");
+        return;
+    }
     RequestPost('delete_record.php',currId);
     if (currentObj == maxObj) {
         currentObj = currentObj - 1;
