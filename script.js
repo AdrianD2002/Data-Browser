@@ -1,5 +1,6 @@
 var currentObj = 1; // Current entry displayed on page
 var maxObj; // Last entry displayed on page
+let obtainedObj; // Obtained object from non-page updating get request
 var httpRequest; // Placeholder for HTTP requests
 var sortByIndex = true; // Toggle for display order
 var editingEnabled = false;
@@ -37,7 +38,6 @@ function InitializeCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 maxObj = parseInt(httpRequest.responseText);
-                document.getElementById('by_index').style = 'color: lime; font-weight: bolder';
                 RequestGet();
             }
         }
@@ -289,4 +289,69 @@ function UploadCallBack() {
     catch (exception) {
         alert('POST EXCEPTION: ' + exception);
     }
+}
+
+function GetObj(newCallback) {
+    httpRequest = new XMLHttpRequest();
+    sortType = sortByIndex ? 1 : 0;
+
+    if(!httpRequest) {
+        alert('Could not create XMLHTTP instance!');
+        return false;
+    }
+
+    console.log("currentobj: " + currentObj);
+    httpRequest.onreadystatechange = function () {
+        try {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+    
+                    obtainedObj = JSON.parse(httpRequest.responseText);
+                    console.log("Obtained:\n" + JSON.stringify(obtainedObj));
+                    console.log("Sort by Index: " + sortByIndex);
+    
+                    let curr = document.getElementById("sorted_table").innerHTML;
+    
+                    let str = '<tr>';
+                    str += '<td>' + obtainedObj["dishName"] + '</td>';
+                    str += '<td>' + obtainedObj["origin"] + '</td>';
+                    str += '<td>' + obtainedObj["myRating"] + '</td>';
+                    str += '<td>' + (obtainedObj["isServedAtJollibee"] == 1 ? 'Yes' : 'No') + '</td>';
+                    str += '<td>' + obtainedObj["mealType"] + '</td>';
+                    str += '<td>' + obtainedObj["dishImage"] + '</td>';
+                    str += '</tr>';
+    
+                    document.getElementById("sorted_table").innerHTML = curr + str; 
+                    
+                    currentObj++;
+
+                    if (newCallback) newCallback();
+                }
+            }
+        }
+        catch (exception) {
+            alert('GET EXCEPTION: ' + exception);
+        }
+    };
+
+    httpRequest.open('GET',`fetch_data.php?curr=${currentObj}&sortIndex=${sortType}`);
+    httpRequest.send();
+}
+function ShowTable() {
+    document.getElementById("sorted_table").innerHTML = '';
+    sortByIndex = false;
+    let tempObj = currentObj;
+    currentObj = 1;
+    document.getElementById("sorted_table").innerHTML = '<tr><th>Name</th><th>Origin</th><th>Rating</th><th>Served at Jollibee?</th><th>Course</th><th>Image URL</th></tr>';
+
+    function GetNext() {
+        if (currentObj <= maxObj) {
+            GetObj(GetNext);
+        } else {
+            sortByIndex = true;
+            currentObj = tempObj;
+        }
+    }
+
+    GetNext();
 }
