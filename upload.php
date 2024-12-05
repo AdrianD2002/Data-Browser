@@ -10,7 +10,7 @@
     }
 
     // Verify file is an image
-    if (getimagesize($_FILES["file"]["name"]) === false)  {
+    if (getimagesize($_FILES["file"]["name"]))  {
         echo "File is not an image\n";
         $uploadOk = 0;
     }
