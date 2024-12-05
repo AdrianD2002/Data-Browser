@@ -1,4 +1,5 @@
 var currentObj = 1; // Current entry displayed on page
+var tempObj = 1; // For the table
 var maxObj; // Last entry displayed on page
 let obtainedObj; // Obtained object from non-page updating get request
 var httpRequest; // Placeholder for HTTP requests
@@ -38,6 +39,7 @@ function InitializeCallback() {
             if (httpRequest.status === 200) {
                 // HTTP Ok
                 maxObj = parseInt(httpRequest.responseText);
+                document.getElementById("by_index").style = 'color: lime; font-weight: bolder';
                 RequestGet();
             }
         }
@@ -112,7 +114,7 @@ function RequestGet() {
     }
 
     httpRequest.onreadystatechange = GetCallback;
-    httpRequest.open('GET',`fetch_data.php?curr=${currentObj}&sortIndex=${sortType}`);
+    httpRequest.open('GET',`fetch_data.php?curr=${currentObj}&sortIndex=false`);
     httpRequest.send();
 }
 
@@ -255,7 +257,7 @@ function ToggleSort() {
         document.getElementById("by_name").style = 'color: lime; font-weight: bolder';
     }
 
-    RequestGet();
+    ShowTable();
 }
 
 var fileName;
@@ -311,12 +313,12 @@ function GetObj(newCallback) {
                 if (httpRequest.status === 200) {
     
                     obtainedObj = JSON.parse(httpRequest.responseText);
-                    console.log("Obtained:\n" + JSON.stringify(obtainedObj));
-                    console.log("Sort by Index: " + sortByIndex);
+                    //console.log("Obtained:\n" + JSON.stringify(obtainedObj));
     
                     let curr = document.getElementById("sorted_table").innerHTML;
     
                     let str = '<tr>';
+                    str += '<td>' + obtainedObj["id"] + '</td>';
                     str += '<td>' + obtainedObj["dishName"] + '</td>';
                     str += '<td>' + obtainedObj["origin"] + '</td>';
                     str += '<td>' + obtainedObj["myRating"] + '</td>';
@@ -343,16 +345,14 @@ function GetObj(newCallback) {
 }
 function ShowTable() {
     document.getElementById("sorted_table").innerHTML = '';
-    sortByIndex = false;
     let tempObj = currentObj;
     currentObj = 1;
-    document.getElementById("sorted_table").innerHTML = '<tr><th>Name</th><th>Origin</th><th>Rating</th><th>Served at Jollibee?</th><th>Course</th><th>Image URL</th></tr>';
+    document.getElementById("sorted_table").innerHTML = '<tr><th>Index (ID)</th><th>Name</th><th>Origin</th><th>Rating</th><th>Served at Jollibee?</th><th>Course</th><th>Image URL</th></tr>';
 
     function GetNext() {
         if (currentObj <= maxObj) {
             GetObj(GetNext);
         } else {
-            sortByIndex = true;
             currentObj = tempObj;
         }
     }
